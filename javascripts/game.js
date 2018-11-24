@@ -5655,74 +5655,34 @@ function setup () {
 
 setup();
 
+window.addEventListener('keyup', function(event) {
+    if (event.keyCode == 17) controlDown = false;
+    if (event.keyCode == 16) {
+        shiftDown = false;
+        document.getElementById("studytreeloadsavetext").textContent = "load:"
+        drawStudyTree()
+    }
+}, false);
+
+window.onfocus = function() {
+    controlDown = false;
+    shiftDown = false;
+    document.getElementById("studytreeloadsavetext").textContent = "load:"
+    drawStudyTree()
+}
+
 window.addEventListener('keydown', function(event) {
     if (!player.options.hotkeys || controlDown === true || document.activeElement.type === "text") return false
     const tmp = event.keyCode;
-
-      case 49: // 1
-          buyManyDimension(1)
-      break;
-
-      case 50: // 2
-          buyManyDimension(2)
-      break;
-
-      case 51: // 3
-          buyManyDimension(3)
-      break;
-
-      case 52: // 4
-          buyManyDimension(4)
-      break;
-
-      case 53: // 5
-          buyManyDimension(5)
-      break;
-
-      case 54: // 6
-          buyManyDimension(6)
-      break;
-
-      case 55: // 7
-          buyManyDimension(7)
-      break;
-
-      case 56: // 8
-          buyManyDimension(8)
-      break;
-
-      case 57: // 9
-          buyManyDimension(9)
-      break;
-
-      case 65: // A
-          buyManyDimension(10);
-      break;
-
-      case 66: // B
-          buyManyDimension(11);
-      break;
-
-      case 67: // C
-          buyManyDimension(12);
-      break;
-
-      case 68: // D
-          buyManyDimension(13);
-      break;
-
-      case 69: // E
-          buyManyDimension(14);
-      break;
-
-      case 70: // F
-          buyManyDimension(15);
-      break;
-
-      case 71: // G
-          buyManyDimension(16);
-      break;
-
+    if (tmp >= 49 && tmp <= 56) {
+        if (shiftDown) buyOneDimension(tmp-48)
+        else buyManyDimension(tmp-48)
+        return false;
+    } else if (tmp >= 97 && tmp <= 104) {
+        if (shiftDown) buyOneDimension(tmp-96)
+        else buyManyDimension(tmp-96)
+        return false;
+    }
     switch (event.keyCode) {
         case 65: // A
             toggleAutoBuyers();
@@ -5743,6 +5703,18 @@ window.addEventListener('keydown', function(event) {
         case 84: // T
             if (shiftDown) buyTickSpeed()
             else buyMaxTickSpeed()
+        break;
+    }
+  }, false);
+
+    if (!player.options.hotkeys || controlDown === true || document.activeElement.type === "text") return false
+    switch (event.keyCode) {
+        case 67: // C
+            document.getElementById("bigcrunch").onclick()
+        break;
+
+        case 69: // E, also, nice.
+        document.getElementById("eternitybtn").onclick();
         break;
 
     }
