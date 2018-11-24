@@ -740,7 +740,7 @@ function onLoad() {
     if (player.options.commas === undefined) player.options.commas = true
 
     if (typeof player.currentChallenge === 'string') {
-      alert('Your save is being converted. If you were in a challenge, you now are not. ' +
+      alert('Your save is being converted. If you were in a challenge, you have exited the challenge. ' +
       'If you were not in a challenge, you should be fine.');
       player.currentChallenge = noChallenge;
     }
@@ -5659,7 +5659,10 @@ window.addEventListener('keydown', function(event) {
   if (!player.options.hotkeys) return false
   switch (event.keyCode) {
       // Toggling autobuyers has been removed. Do it like a normal person by using the autobuyers tab.
-
+      // ...that was a horrible idea, we're adding it back
+        case 65: // A
+            toggleAutoBuyers();
+        break;
       // What the hell does g even do? REMOVING IT.
       // Looks like it buys galaxies, which is now USELESS.
       case 76: // L, lever max
