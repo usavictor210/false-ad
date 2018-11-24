@@ -3696,7 +3696,7 @@ function updateCheckBoxes() {
 
 
 function toggleAutoBuyers() {
-    var bool = player.autobuyers[1].isOn
+    var bool = player.autobuyers[0].isOn
     for (var i of autobuyerList) {
         if (player.autobuyers[i]) {
             player.autobuyers[i].isOn = !bool;
@@ -5656,32 +5656,8 @@ function setup () {
 setup();
 
 window.addEventListener('keydown', function(event) {
-  if (!player.options.hotkeys) return false
-  switch (event.keyCode) {
-      // Toggling autobuyers has been removed. Do it like a normal person by using the autobuyers tab.
-      // ...that was a horrible idea, we're adding it back
-        case 65: // A
-            toggleAutoBuyers();
-        break;
-      // What the hell does g even do? REMOVING IT.
-      // Looks like it buys galaxies, which is now USELESS.
-      case 76: // L, lever max
-          negateLeverClick();
-      break;
-
-      case 77: // M, max
-          maxAll();
-      break;
-
-      case 83: // S = shift
-          if (canReset('shift')) {
-              softReset(1, 'shift');
-          }
-      break;
-
-      case 84: // T
-          buyMaxTickSpeed()
-      break;
+    if (!player.options.hotkeys || controlDown === true || document.activeElement.type === "text") return false
+    const tmp = event.keyCode;
 
       case 49: // 1
           buyManyDimension(1)
@@ -5746,8 +5722,31 @@ window.addEventListener('keydown', function(event) {
       case 71: // G
           buyManyDimension(16);
       break;
-  }
-}, false);
+
+    switch (event.keyCode) {
+        case 65: // A
+            toggleAutoBuyers();
+        break;
+
+        case 68: // D
+            document.getElementById("softReset").onclick()
+        break;
+
+        case 77: // M
+            document.getElementById("maxall").onclick()
+        break;
+
+        case 83: // S
+            document.getElementById("sacrifice").onclick()
+        break;
+
+        case 84: // T
+            if (shiftDown) buyTickSpeed()
+            else buyMaxTickSpeed()
+        break;
+
+    }
+  }, false);
 
 init();
 var totalMult = 1
